@@ -1,6 +1,13 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main {
 	public static void main(String[] argv) {
@@ -35,15 +42,16 @@ public class Main {
 //			Tour t = nearestNeighbor(g, 0);
 			Tour t = NearestAddition.NearestAddition(g, 0);
 //			t = TwoOpt.twoOpt(g, t);
-			System.out.println(t);
+			Path file = Paths.get(fname + ".tour");
+			List<String> lines = new ArrayList<>(Arrays.asList(t.printable()));
+			Files.write(file, lines, Charset.forName("UTF-8"));
 		} catch (FileNotFoundException e) {
 			// TODO fuck java
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO AuTo-gENeRaTeD CaTCh blOcK
 			e.printStackTrace();
 		}
-		
 	}
 	
 	//Confirmed to work!

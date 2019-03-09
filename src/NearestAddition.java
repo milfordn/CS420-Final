@@ -26,7 +26,7 @@ public class NearestAddition {
 				} while(j != available);
 				i = i.next;
 			} while(i != tour);
-			System.out.println("Adding " + nextBestAddition.element + " from " + nextBestFrom.element + " (" + tourLength * 100 / g.numCities() + "%)");
+//			System.out.println("Adding " + nextBestAddition.element + " from " + nextBestFrom.element + " (" + tourLength * 100 / g.numCities() + "%)");
 			cost += addNearestAddition(nextBestFrom, nextBestAddition.element, g);
 			available = nextBestAddition.next;
 			LinkedList.delete(available.prev);

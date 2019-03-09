@@ -34,4 +34,13 @@ public class Tour {
 		
 		return b.toString();
 	}
+	
+	public String[] printable() {
+		String[] toRet = new String[cities.length + 1];
+		toRet[0] = length + "";
+		for(int i = 0; i < cities.length; i++) {
+			toRet[i+1] = cities[i] + "";
+		}
+		return toRet;
+	}
 }
