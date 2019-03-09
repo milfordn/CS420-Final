@@ -12,13 +12,14 @@ import java.util.List;
 public class Main {
 	public static void main(String[] argv) {
 		String fname;
-		if(argv.length < 2) {
-			fname = "tsp_example_2.txt";
+		System.out.println(argv.length);
+		if(argv.length < 1) {
+			fname = "../tsp_example_2.txt";
 		} else {
-			fname = argv[1];
+			fname = argv[0];
 		}
 		
-		Graph g; //todo later;
+		Graph g;
 		
 		try {
 			RandomAccessFile f = new RandomAccessFile(fname, "r");
