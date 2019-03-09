@@ -39,10 +39,16 @@ public class Main {
 				g.addCity(Integer.parseInt(parts[0]), x, y);
 			}
 			f.close();
-			
-//			Tour t = nearestNeighbor(g, 0);
-			Tour t = NearestAddition.NearestAddition(g, 0);
-//			t = TwoOpt.twoOpt(g, t);
+		
+			Tour t = new Tour(null, 0);
+			if(numCities > 1000) {
+				//faster, but less optimal first pass	
+				t = nearestNeighbor(g, 0);
+			} else {
+				//slower, more optimal first pass
+				t = NearestAddition.NearestAddition(g, 0);
+			}
+			t = TwoOpt.twoOpt(g, t);
 			Path file = Paths.get(fname + ".tour");
 			List<String> lines = new ArrayList<>(Arrays.asList(t.printable()));
 			Files.write(file, lines, Charset.forName("UTF-8"));
