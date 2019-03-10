@@ -11,12 +11,14 @@ import java.util.List;
 
 public class Main {
 	public static void main(String[] argv) {
-		String fname;
-		System.out.println(argv.length);
-		if(argv.length < 1) {
-			fname = "../tsp_example_2.txt";
-		} else {
+		String fname = "../tsp_example_1.txt";
+		int algorithm = -1; //1st bit -> enable 2-opt, 2nd bit -> 0 for NN, 1 for NA. -1 for default.
+		if(argv.length > 0) {
 			fname = argv[0];
+		}
+
+		if(argv.length > 1) {
+			algorithm = Integer.parseInt(argv[1]);
 		}
 		
 		Graph g;
@@ -41,14 +43,29 @@ public class Main {
 			f.close();
 		
 			Tour t = new Tour(null, 0);
-			if(numCities > 1000) {
-				//faster, but less optimal first pass	
-				t = nearestNeighbor(g, 0);
-			} else {
-				//slower, more optimal first pass
-				t = NearestAddition.NearestAddition(g, 0);
+			if(algorithm == -1){
+				System.out.println("Default");
+				if(numCities > 1000) {
+					//faster, but less optimal first pass	
+					t = nearestNeighbor(g, 0);
+				} else {
+					//slower, more optimal first pass
+					t = NearestAddition.NearestAddition(g, 0);
+				}
+				t = TwoOpt.twoOpt(g, t);
+			} else { //custom setup from command line
+				if(algorithm / 2 == 0){
+					System.out.println("Nearest Neighbor");
+					t = nearestNeighbor(g, 0);
+				} else {
+					System.out.println("Nearest Addition");
+					t = NearestAddition.NearestAddition(g, 0);
+				}
+				if(algorithm % 2 == 1){
+					System.out.println("2-opt");
+					t = TwoOpt.twoOpt(g, t);
+				}
 			}
-			t = TwoOpt.twoOpt(g, t);
 			Path file = Paths.get(fname + ".tour");
 			List<String> lines = new ArrayList<>(Arrays.asList(t.printable()));
 			Files.write(file, lines, Charset.forName("UTF-8"));
