@@ -7,4 +7,4 @@ args:
 	3 for Nearest Addition with 2-opt optimization
 	No argument for default (decides Nearest Neighbor or Nearest Addition based on size, then 2-opt optimization)
 
-You probably want `java Main tsp_example_*.txt`
+You probably want `java Main (path-to-file).txt` for verifying the test cases
